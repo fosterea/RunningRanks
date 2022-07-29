@@ -1,0 +1,88 @@
+.ranks-page {
+    padding-top: 2rem;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.ranks-page-title {
+    border-bottom: 5px solid #d3d3d3;
+    color: #696969;
+    font-size: 2rem;
+
+    min-width: fit-content;
+    max-width: 50%;
+}
+
+.ranks-header {
+    margin: 0 0 20px;
+    text-align: left;
+}
+
+.ranks-subtitle {
+    color: #696969;
+    size: 7pt;
+}
+
+@media screen and (max-device-width: 950px) {
+    .ranks-page {
+        padding-left: 5%;
+        padding-right: 5%;
+        font-size: 9pt;
+    }
+
+    /* .ranks-header {
+        padding-left: 10%;
+        padding-right: 10%;
+    } */
+}
+
+
+
+
+.ranks-table {
+    border-collapse: separate; /* allow spacing between cell borders */
+    border-spacing: 0 7px;
+    width: 100%;
+    text-align: left;
+}
+
+.ranks-table tbody tr {
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 1px 1px 8px rgb(0 0 0 / 10%);
+    height: 3rem;
+    width: 100%;
+    transition: 150ms;
+}
+
+.ranks-table td, .ranks-table th {
+    padding: 20px;
+}
+
+.ranks-table tbody tr:hover {
+    box-shadow: 1px 1px 8px rgb(0 0 0 / 15%);
+    transform: scale(1.015);
+    transition: 150ms;
+}
+
+.ranks-table thead {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.ranks-table-container {
+    padding-bottom: 6rem;
+    padding-top: 1rem;
+}
+
+
+@media screen and (max-device-width: 950px) {
+    /* .ranks-table {
+        transform: scale(.7);
+        transform-origin: top left;
+    } */
+
+    .ranks-table td, .ranks-table th {
+        padding: 5px;
+    }
+}

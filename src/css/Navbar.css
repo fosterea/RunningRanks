@@ -1,0 +1,13 @@
+.right-align-nav {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: right;
+    column-gap: 2rem;
+}
+
+@media screen and (max-device-width: 950px) {
+    .right-align-nav {
+        column-gap: 1rem;
+    }
+}

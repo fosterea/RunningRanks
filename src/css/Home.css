@@ -1,0 +1,83 @@
+/* 
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+  }
+  
+  .intro-container {
+    z-index: 1;
+    display: flex;
+align-items: center;
+justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    height: 100%;
+}
+
+.intro {
+    height: 100%;
+    width: 100%;
+}
+
+.home-content {
+    height: 100%;
+} */
+
+video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translateX(calc((100% - 100vw) / 2));
+}
+
+
+/* #myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+} */
+
+/* Add some content at the bottom of the video/page */
+.intro-container {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    align-content: center;
+    bottom: 0;
+    top: 0;
+
+    background: radial-gradient(#0000009b, rgba(255, 255, 255, 0));
+
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+}
+
+
+/* Style the button used to pause/play the video */
+#myBtn {
+    width: 200px;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+#myBtn:hover {
+    background: #ddd;
+    color: black;
+}
