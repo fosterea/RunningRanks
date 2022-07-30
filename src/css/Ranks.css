@@ -16,6 +16,18 @@
 .ranks-header {
     margin: 0 0 20px;
     text-align: left;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+}
+
+.top-next-btn-container {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.bottom-next-btn-container {
+    padding-top: 2rem;
 }
 
 .ranks-subtitle {
@@ -86,3 +98,4 @@
         padding: 5px;
     }
 }
+

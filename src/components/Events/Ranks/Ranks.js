@@ -3,8 +3,9 @@ import { cleanDashes } from '../../../setup/consts'
 import { db } from '../../../setup/firebase'
 import { onSnapshot, doc } from "firebase/firestore";
 import '../../../css/Ranks.css'
+import NextBTN from './NextBTN'
 
-export default function Ranks({ event }) {
+export default function Ranks({ event, isMobile }) {
 
     const [ranks, setRanks] = useState([])
     const [contributors, setContributors] = useState(null)
@@ -24,8 +25,10 @@ export default function Ranks({ event }) {
                     <div className='ranks-page-title'>{cleanDashes(event)}</div>
                     {contributors && <div className='ranks-subtitle'>{contributors} contributors</div>}
                 </div>
-                <div>
-                    
+                <div className='top-next-btn-container'>
+                    {
+                        !isMobile && <NextBTN event={event} />
+                    }
                 </div>
             </div>
 
@@ -53,7 +56,11 @@ export default function Ranks({ event }) {
                         ))}
                     </tbody>
                 </table>
+                <div className='bottom-next-btn-container'>
+                    <NextBTN event={event} />
+                </div>
             </div>
+
         </div>
     )
 }
