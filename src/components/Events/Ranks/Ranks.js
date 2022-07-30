@@ -4,8 +4,9 @@ import { db } from '../../../setup/firebase'
 import { onSnapshot, doc } from "firebase/firestore";
 import '../../../css/Ranks.css'
 import NextBTN from './NextBTN'
+import { isMobile } from 'react-device-detect';
 
-export default function Ranks({ event, isMobile }) {
+export default function Ranks({ event, isSmallScreen }) {
 
     const [ranks, setRanks] = useState([])
     const [contributors, setContributors] = useState(null)

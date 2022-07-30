@@ -10,7 +10,7 @@ export default function NextBTN({ event }) {
         var message = `Return to ${cleanDashes(events[0])}`
         next_event = events[0]
     } else {
-        var message = `Next event: ${cleanDashes(next_event)}`
+        message = `Next event: ${cleanDashes(next_event)}`
     }
 
     return (
