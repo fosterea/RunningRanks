@@ -22,7 +22,7 @@ export default function Graph({ event }) {
 
             let people = new Set()
 
-            for (let log of logs) {
+            for (let log of logs.slice().reverse()) {
                 for (let person of log.people)
                     people.add(person)
             }
