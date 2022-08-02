@@ -75,6 +75,13 @@ export default class Ranker extends Component {
     }
 
     skipMatch() {
+
+        // Don't allow skipping if asking if they
+        // want to continue
+        if (this.state.index === this.state.max_index) {
+            return
+        }
+
         let new_index = this.state.index + 1
 
         if (this.state.pairs.length === new_index) {

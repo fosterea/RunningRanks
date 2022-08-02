@@ -12,6 +12,42 @@ const db = getFirestore();
 const eventsRef = db.collection("events");
 const rankingsRef = db.collection("rankings");
 
+const unprocessed_events_list = [
+    '100m/women',
+    '200m/women',
+    "400m/women",
+    "800m/women",
+    '1500m/women',
+    '5000m/women',
+    '10000m/women',
+    '100mh/women',
+    '400mh/women',
+    '3000msc/women',
+    'marathon/women',
+    '100m/men',
+    '200m/men',
+    '400m/men',
+    '800m/men',
+    '1500m/men',
+    '5000m/men',
+    '10000m/men',
+    '110mh/men',
+    '400mh/men',
+    '3000msc/men',
+    'marathon/men',
+]
+
+var events_list = []
+
+function cleanSlashes(str) {
+    return str.replace('/', '-')
+}
+
+for (let i in unprocessed_events_list) {
+    events_list[i] = cleanSlashes(unprocessed_events_list[i])
+}
+
+
 exports.updateEvent = functions.https.onCall(async (data, context) => {
     const event = data.event
     return await updateEvent(event)
@@ -44,13 +80,89 @@ exports.updateAfterWebscrape = functions
 })
 
 
+// Monthly update function
+// Cron: 0 0 * * 0
+exports.logCurrentStates = functions.pubsub.schedule('0 0 * * 0')
+    .timeZone('America/Los_Angeles') // Users can choose timezone - default is America/Los_Angeles
+    .onRun(async (context) => {
+        await logCurrentStates()
+        return null;
+});
+
+exports.testLog = functions.https.onRequest(async (rec, res) => {
+    await logCurrentStates()
+    res.send("yasssss")
+})
+
+async function logCurrentStates() {
+
+    // Update events
+    let calls = []
+    for (let event of events_list) {
+        calls.push(updateEvent(event))
+    }
+    await Promise.all(calls)
+
+    let now = new Date()
+    let date = now.toLocaleDateString('en-US')
+    let timestamp = Timestamp.fromDate(now)
+    let millis = now.getTime()
+
+
+    calls = []
+    for (let event of events_list) {
+        calls.push(logEvent(event, date, timestamp, millis))
+    }
+    await Promise.all(calls)
+}
+
+async function logEvent(event, date, timestamp, millis) {
+    console.log(event)
+
+    // Get past logs
+    const logs_ref = db.collection("logs").doc(event)
+    const logs_doc = await logs_ref.get()
+    if (!logs_doc.exists) {
+        var logs = []
+    } else {
+        logs = logs_doc.data().logs
+    }
+
+    // Get new data
+    const event_ref = eventsRef.doc(event)
+    const event_doc = await event_ref.get()
+    const data = event_doc.data()
+    const ranks = data.ranks
+
+    let log = {
+        contributors: data.contributors,
+        date: date,
+        timestamp: timestamp,
+        people: [],
+        milles: millis,
+    }
+
+    for (let athlete of ranks) {
+        log[athlete.name] = athlete.score
+        log.people.push(athlete.name)
+    }
+    console.log(log)
+
+    // Save data in logs
+    logs.push(log)
+    logs_ref.set({
+        logs: logs,
+        event: event,
+    })
+}
+
 /**
  * Updates the event rankings for an event.
  * @param {string} event The event that must be updated
  * @returns True
  */
 async function updateEvent(event) {
-
+    
     const weekAgo = Timestamp.fromDate(getLastWeeksDate())
 
     let docs = await rankingsRef.where('event', '==', event).where('updated', '>', weekAgo).get()

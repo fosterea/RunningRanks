@@ -1,0 +1,36 @@
+.person-button {
+    padding: 5px;
+}
+
+.active-person {
+    /* background-color: rgba(0, 213, 170, 0.528); */
+    background-color: #0d6dfdaf;
+    color: white;
+}
+
+.inactive-person {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.selector-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.show-chart-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    width: fit-content;
+    padding: 5px 15px;
+    border-radius: 200px;
+    font-size: 9pt;
+}
+
+.show-chart-btn:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+/* 
+.show-chart-btn-container {
+    margin: 5px 0;
+} */

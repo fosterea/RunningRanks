@@ -5,18 +5,23 @@ import { onSnapshot, doc } from "firebase/firestore";
 import '../../../css/Ranks.css'
 import NextBTN from './NextBTN'
 import { isMobile } from 'react-device-detect';
+import Graph from './Graph/Graph';
+import userAuthContext, { useUserAuth } from '../../../setup/UserAuthContext';
 
 export default function Ranks({ event, isSmallScreen }) {
 
     const [ranks, setRanks] = useState([])
     const [contributors, setContributors] = useState(null)
 
+    const {user} = useUserAuth()
+
     useEffect(() => {
-        onSnapshot(doc(db, 'events', event), (doc) => {
+        let unsub = onSnapshot(doc(db, 'events', event), (doc) => {
             let data = doc.data()
             setRanks(data.ranks)
             setContributors(data.contributors)
         })
+        return unsub
     }, [event])
 
     return (
@@ -32,6 +37,13 @@ export default function Ranks({ event, isSmallScreen }) {
                     }
                 </div>
             </div>
+
+            {/* {user.displayName === 'Foster Angus' &&  */}
+            
+            <div className="graph-togle-container">
+                <Graph event={event} key={event} />
+            </div>
+            {/* } */}
 
             <div className='ranks-table-container'>
                 <table className='ranks-table'>
